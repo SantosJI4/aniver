@@ -1,25 +1,32 @@
-@use '../variables';
+@use "../variables";
 
 .button {
-    padding: 12px;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    text-align: center;
-    white-space: nowrap;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
-    &--primary {
-        color: #fff;
-        background-color: variables.$purple;
-    }
+  &--primary {
+    color: #fff;
+    background-color: variables.$purple;
 
-    @media (max-width: 640px) {
-        display: block;
-        width: 100%;
+    &:hover,
+    &:focus {
+      background-color: darken(variables.$purple, 10%);
+      color: lighten(#fff, 10%);
     }
+  }
 
-    @media (max-width: 1024px) {
-        display: flex;
-        align-items: center;
-    }
+  @media (max-width: 640px) {
+    display: block;
+    width: 100%;
+  }
+
+  @media (max-width: 1024px) {
+    display: flex;
+    align-items: center;
+  }
 }

@@ -1,28 +1,206 @@
-@use 'hero';
-@use 'components/infos_bar';
-@use 'components/buttons';
-@use 'event';
-@use 'variables';
+@use "hero";
+@use "components/infos_bar";
+@use "components/buttons";
+@use "event";
+@use "variables";
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Roboto, sans-serif;
-    color: variables.$textColor;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  color: variables.$textColor;
+  list-style: none;
 }
 
 .container {
-    max-width: 960px;
-    width: 100%;
-    margin: 0 auto;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
 
-    @media (max-width: 640px) {
-        max-width: 80%;
-    }
+  @media (max-width: 640px) {
+    max-width: 80%;
+  }
 
-    @media (max-width: 1024px) {
-        max-width: 90%;
-    }
+  @media (max-width: 1024px) {
+    max-width: 90%;
+  }
+}
+
+.logo-container {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.party-hat {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-bottom: 70px solid #ff69b4;
+  z-index: 1;
+  animation: hatBounce 2s ease-in-out infinite;
+
+  // Adiciona padrão de listras
+  &::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: -25px;
+    width: 50px;
+    height: 40px;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      #ffb6c1 10px,
+      #ffb6c1 20px
+    );
+  }
+
+  // Base do chapéu
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: -40px;
+    width: 80px;
+    height: 15px;
+    background: #ffb6c1;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  // Pompom no topo
+  .pompom {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: yellow;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+    animation: glowPompom 1.5s ease-in-out infinite alternate;
+  }
+
+  // Confetes
+  &::after {
+    content: "✦";
+    position: absolute;
+    color: #fff;
+    font-size: 12px;
+    animation: confetti 3s linear infinite;
+  }
+}
+
+@keyframes hatBounce {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(5deg);
+  }
+}
+
+@keyframes glowPompom {
+  from {
+    box-shadow: 0 0 5px rgba(255, 255, 0, 0.5);
+  }
+  to {
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+  }
+}
+
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(20px) rotate(360deg);
+    opacity: 0;
+  }
+}
+.birthday-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(45deg, #ff69b4, #ff1493);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  z-index: 1000;
+  animation: popIn 0.5s ease-out;
+
+  h1 {
+    color: white;
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: bounce 1s infinite;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes popIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.confetti {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #ffd700;
+  top: 0;
+  opacity: 0;
+}
+@keyframes fall {
+  0% {
+    opacity: 1;
+    top: -10%;
+    transform: translateX(0) rotateZ(0deg);
+  }
+  100% {
+    opacity: 0;
+    top: 100%;
+    transform: translateX(100px) rotateZ(360deg);
+  }
 }
